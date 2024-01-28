@@ -1,13 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 spring:
   batch:
     job:
       name: ${job.name:NONE} #job을 실행할 때 job 이름을 파라미터로 넘기기 위한 세팅
+      enabled: false #프로젝트가 생성될 때 Job에 대한 parameter가 존재하더라도 구동시키지않고 스케줄러를 활용해서 구동시키기 위한 설정
     jdbc:
       initialize-schema: ALWAYS #항상 스키마 생성
   datasource:
-    url: jdbc:mysql://localhost:3306/spring_batch
+    url: jdbc:mysql://localhost:3306/spring_batch?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 12345
   jpa:
+    hibernate:
+      ddl-auto: update #create(table 버리고 생성) update none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
